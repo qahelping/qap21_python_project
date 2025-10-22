@@ -14,7 +14,7 @@ def driver():
 def test_selenium_web(driver):
   url = "https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/https://www.selenium.dev/"
   driver.get(url)
-  assert driver.title == "Selenium"
+  assert driver.title == "Selenium1"
   assert driver.current_url == url
 
 

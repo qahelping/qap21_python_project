@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 @pytest.fixture
 def driver():
     opts = Options()
-    # opts.add_argument("--headless=new")
+    opts.add_argument("--headless=new")
     opts.add_argument("--window-size=640,900")
     driver = webdriver.Chrome(options=opts)
     yield driver

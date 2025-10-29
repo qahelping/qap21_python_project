@@ -1,8 +1,10 @@
+import pytest
 from selenium.webdriver.common.by import By
 
 url = "https://letcode.in/test"
 
 
+@pytest.mark.smoke
 def test_form(driver_firefox):
     driver_firefox.get(url)
     element = driver_firefox.find_elements(By.CLASS_NAME, "card-footer-item")[18]
@@ -46,6 +48,7 @@ def test_form(driver_firefox):
     element.submit()
 
 
+@pytest.mark.skip
 def test_execute_script(driver_firefox):
     driver_firefox.get("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_button_test")
     driver_firefox.switch_to.frame("iframeResult")

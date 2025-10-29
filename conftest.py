@@ -3,6 +3,17 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+pytest_plugins = [
+    "fixtures.fixtures_pytest",
+]
+
+
+@pytest.fixture(scope="module", autouse=True)
+def fixture_module_autouse_false():
+    print("Фикстура МODULE fixture_class_autouse_false --- ")
+    yield "----"
+    print("Фикстура МODULE закончила действие fixture_class_autouse_false --- ")
+
 
 @pytest.fixture
 def driver():
@@ -15,7 +26,7 @@ def driver():
     driver.quit()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="function", autouse=False)
 def driver_firefox():
     options = FirefoxOptions()
     options.headless = True

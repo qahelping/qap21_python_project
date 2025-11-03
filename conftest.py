@@ -18,7 +18,7 @@ def fixture_module_autouse_false():
 @pytest.fixture
 def driver():
     opts = ChromeOptions()
-    opts.headless = True
+    opts.headless = False
     opts.add_argument("--window-size=640,900")
     driver = webdriver.Chrome(options=opts)
     driver.implicitly_wait(10)

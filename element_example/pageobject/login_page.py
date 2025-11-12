@@ -1,33 +1,35 @@
 from selenium.webdriver.common.by import By
 
+from element_example.core.base_element import BaseElement
 from pageobject_example.pageobject.base_page import BasePage
 from pageobject_example.urls import URLS
 
 
 class LoginPage(BasePage):
-    LOGO = By.CSS_SELECTOR, ".custom-logo-link"
-    MENU_PRACTICE = By.CSS_SELECTOR, "#menu-item-20"
-    MENU_HOME = By.CSS_SELECTOR, "#menu-item-43"
-    MENU_COURSES = By.CSS_SELECTOR, "#menu-item-21"
-    MENU_BLOG = By.CSS_SELECTOR, "#menu-item-19"
-    MENU_CONTACT = By.CSS_SELECTOR, "#menu-item-18"
-    PAGE_TITLE = By.CSS_SELECTOR, "#login h2"
-    PAGE_DESCRIPTION = By.CSS_SELECTOR, "#login ul li:nth-child(1)"
-    PAGE_TEXT_INFO = By.XPATH, '//*[@id="login"]/ul/li[2]'
-    PAGE_TEXT_CREDS = By.CSS_SELECTOR, "#login > ul > li:nth-child(2) b"
-    INPUT_USER_NAME = (By.ID, "username")
-    INPUT_PASSWORD = (By.ID, "password")
-    SUBMIT = By.ID, "submit"
-    LINE = By.CLASS_NAME, ".wp-block-separator"
-    ERROR = By.ID, "error"
 
     def __init__(self, driver):
         super().__init__(driver)
+        self.MENU_PRACTICE = BaseElement(driver, (By.CSS_SELECTOR, "#menu-item-20"))
+        self.MENU_HOME = BaseElement(driver, (By.CSS_SELECTOR, "#menu-item-43"))
+        self.MENU_COURSES = BaseElement(driver, (By.CSS_SELECTOR, "#menu-item-21"))
+        self.MENU_BLOG = BaseElement(driver, (By.CSS_SELECTOR, "#menu-item-19"))
+        self.MENU_CONTACT = BaseElement(driver, (By.CSS_SELECTOR, "#menu-item-18"))
+        self.PAGE_TITLE = BaseElement(driver, (By.CSS_SELECTOR, "#login h2"))
+        self.PAGE_DESCRIPTION = BaseElement(driver, (By.CSS_SELECTOR, "#login ul li:nth-child(1)"))
+        self.PAGE_TEXT_INFO = BaseElement(driver, (By.XPATH, '//*[@id="login"]/ul/li[2]'))
+        self.PAGE_TEXT_CREDS = BaseElement(driver, (By.CSS_SELECTOR, "#login > ul > li:nth-child(2) b"))
+        self.INPUT_USER_NAME = BaseElement(driver, (By.ID, "username"))
+        self.INPUT_PASSWORD = BaseElement(driver, (By.ID, "password"))
+        self.SUBMIT = BaseElement(driver, (By.ID, "submit"))
+        self.LINE = BaseElement(driver, (By.CLASS_NAME, ".wp-block-separator"))
+        self.ERROR = BaseElement(driver, (By.ID, "error"))
 
     def open_page(self):
         self.open(URLS.BASE + URLS.LOGIN)
 
     def check_that_page_opened(self, title, description):
+        self.MENU_COURSES.should_be_visible()
+
         self.should_be_visible(self.LOGO)
         self.should_be_visible(self.MENU_PRACTICE)
         self.should_be_visible(self.MENU_COURSES)

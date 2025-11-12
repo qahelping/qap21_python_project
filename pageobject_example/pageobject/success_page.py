@@ -11,6 +11,9 @@ class SuccessPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    def click_logout(self):
+        self.click(self.BUTTON_LOGOUT)
+
     def check_that_page_opened(self, title, text):
         self.should_be_visible(self.TITLE)
         self.should_be_visible(self.TEXT)

@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from pageobject_example.pageobject.base_page import BasePage
+from pageobject_example.urls import URLS
 
 
 class LoginPage(BasePage):
@@ -22,6 +23,9 @@ class LoginPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
+
+    def open_page(self):
+        self.open(URLS.BASE + URLS.LOGIN)
 
     def check_that_page_opened(self, title, description):
         self.should_be_visible(self.LOGO)

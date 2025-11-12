@@ -23,7 +23,7 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    def check_that_page_opened(self, title, description, info):
+    def check_that_page_opened(self, title, description):
         self.should_be_visible(self.LOGO)
         self.should_be_visible(self.MENU_PRACTICE)
         self.should_be_visible(self.MENU_COURSES)

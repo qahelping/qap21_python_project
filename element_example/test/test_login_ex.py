@@ -60,5 +60,4 @@ def test_logout(login_page, success_page, open_page):
     ],
 )
 def test_negative_username(login_page, open_page, user, password, expect):
-    login_page.login(user, password)
-    login_page.check_that_error_is_visible(expect)
+    login_page.login(user, password).check_that_error_is_visible(expect)

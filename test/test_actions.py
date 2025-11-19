@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 url = "https://letcode.in/test"
 
 
+@pytest.mark.count
 def test_form(driver_firefox):
     driver_firefox.get(url)
     element = driver_firefox.find_elements(By.CLASS_NAME, "card-footer-item")[18]

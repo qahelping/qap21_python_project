@@ -50,7 +50,9 @@ class LoginPage(BasePage):
         self.fill(self.INPUT_USER_NAME, text=username)
         self.fill(self.INPUT_PASSWORD, text=password)
         self.click(self.SUBMIT)
+        return self
 
     def check_that_error_is_visible(self, text):
         self.should_be_visible(self.ERROR)
         self.should_be_has_text(self.ERROR, text)
+        return self

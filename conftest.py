@@ -10,7 +10,7 @@ pytest_plugins = [
 ]
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="module", autouse=False)
 def fixture_module_autouse_false():
     print("Фикстура МODULE fixture_class_autouse_false --- ")
     yield "----"

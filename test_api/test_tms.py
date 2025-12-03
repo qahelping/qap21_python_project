@@ -1,9 +1,13 @@
 from datetime import datetime
 
 import pytest
+from faker import Faker
 from logger import logger
 
+from test_api.models import Board, BoardCreate
 from test_api.tms_service import TmsService
+
+faker = Faker()
 
 
 @pytest.fixture
@@ -13,41 +17,38 @@ def tms_service():
 
 @pytest.fixture
 def token(tms_service):
-    # Очищаем pytest.token перед логином
     pytest.token = None
     response_json = tms_service.login("user1@example.com", "user1123")
     assert response_json["access_token"]
+    pytest.token = response_json["access_token"]
     pytest.token = response_json["access_token"]
     return pytest.token
 
 
 def test_create_second_admin(tms_service):
     # Очищаем pytest.token перед регистрацией админа
-    pytest.token = None
     response_json = tms_service.register_admin("admin2", "admin2@example.com", "qwerty123!", code=403)
 
     assert response_json["detail"] == "Admin already exists. Registration is disabled."
     logger.info(response_json)
 
 
+@pytest.mark.only
 def test_create_board(token, tms_service):
-    response_json = tms_service.create_board("string", "string", False)
+    board_create: BoardCreate = BoardCreate(title=faker.text(50), description=faker.text(100), public=True)
 
-    logger.info(response_json)
-    assert response_json["id"]
-    assert response_json["archived"] is False
-    assert response_json["created_by"]
-    assert response_json["title"] == "string"
-    assert response_json["description"] == "string"
-    assert response_json["public"] is False
+    board: Board = tms_service.create_board(board_create)
 
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    assert response_json["created_at"].startswith(current_date)
+    assert board.archived is False
+    assert board.title == board_create.title
+    assert board.description == board_create.description
+    assert board.public is board_create.public
 
 
 def test_create_task(token, tms_service):
-    # Сначала создаем доску
-    board_response = tms_service.create_board("string", "string", False)
+    board_create: BoardCreate = BoardCreate(title=faker.text(50), description=faker.text(100), public=True)
+
+    board_response = tms_service.create_board(board_create)
     logger.info(board_response)
     board_id = board_response["id"]
 

@@ -17,20 +17,20 @@ class BaseService:
                 response.raise_for_status()
             else:
                 assert response.status_code == code
-            logger.info("OK. URL: %s, Code: %d", url, response.status_code)
+            logger.info("OK. URL: %s, Code: %d, Response: %s", url, response.status_code, response.json())
             return response.json()
         except requests.exceptions.RequestException as e:
             logger.error("Error. %s", str(e))
             return None
 
     def delete(self, url, body=None, code=None):
-        self.request("DELETE", url, body, code)
+        return self.request("DELETE", url, body, code)
 
     def post(self, url, token, body=None, code=None):
-        self.request("POST", url, body, code)
+        return self.request("POST", url, body, code)
 
     def put(self, url, body=None, code=None):
-        self.request("POST", url, body, code)
+        return self.request("POST", url, body, code)
 
     def get(self, url, code=None):
-        self.request("POST", url, None, code)
+        return self.request("POST", url, None, code)

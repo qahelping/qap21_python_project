@@ -1,3 +1,5 @@
+pydantic-settings
+sqlalchemy
 webdriver-manager==4.0.2
 selenium==4.37.0
 python-dotenv

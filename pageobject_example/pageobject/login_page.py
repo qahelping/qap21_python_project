@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 
 from pageobject_example.pageobject.base_page import BasePage
@@ -24,9 +25,11 @@ class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    @allure.step("Open page")
     def open_page(self):
         self.open(URLS.BASE + URLS.LOGIN)
 
+    @allure.step("Assert that login page opened")
     def check_that_page_opened(self, title, description):
         self.should_be_visible(self.LOGO)
         self.should_be_visible(self.MENU_PRACTICE)
@@ -46,12 +49,14 @@ class LoginPage(BasePage):
 
         self.should_be_not_visible(self.ERROR)
 
+    @allure.step("Login")
     def login(self, username, password):
         self.fill(self.INPUT_USER_NAME, text=username)
         self.fill(self.INPUT_PASSWORD, text=password)
         self.click(self.SUBMIT)
         return self
 
+    @allure.step("Assert error is visible")
     def check_that_error_is_visible(self, text):
         self.should_be_visible(self.ERROR)
         self.should_be_has_text(self.ERROR, text)

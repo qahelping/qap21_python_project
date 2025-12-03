@@ -1,3 +1,4 @@
+allure-pytest
 pydantic-settings
 sqlalchemy
 webdriver-manager==4.0.2

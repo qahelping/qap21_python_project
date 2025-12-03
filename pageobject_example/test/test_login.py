@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from pageobject_example.pageobject.login_page import LoginPage
@@ -30,6 +31,7 @@ def test_check_all_elements(login_page, open_page):
 
 
 @pytest.mark.smoke
+@allure.title("Authentication")
 def test_positive_login(login_page, success_page, open_page):
     login_page.login("student", "Password123")
     success_page.check_that_page_opened(
@@ -37,6 +39,8 @@ def test_positive_login(login_page, success_page, open_page):
     )
 
 
+@allure.title("Authentication 2")
+@pytest.mark.smoke
 def test_logout(login_page, success_page, open_page):
     login_page.login("student", "Password123")
     success_page.check_that_page_opened(
@@ -59,6 +63,8 @@ def test_logout(login_page, success_page, open_page):
         ("student", "incorrectPassword", "Your password is invalid!"),
     ],
 )
+@pytest.mark.smoke
+@allure.title("Authentication negative")
 def test_negative_username(login_page, open_page, user, password, expect):
     login_page.login(user, password)
     login_page.check_that_error_is_visible(expect)

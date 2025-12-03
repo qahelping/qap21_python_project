@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -30,15 +31,20 @@ class BasePage:
         if title:
             assert self.wait.until(EC.title_contains(title))
 
+    @allure.step("should_be_has_text {selector}, {expected}")
     def should_be_has_text(self, selector, expected):
-        element = self.get_element(selector)
-        actual = element.text.strip()
-        assert actual == expected, f"ACTUAL IS:  {actual}, EXPECTED IS: {expected}"
+        with allure.step(f"Should be visible selector: {selector}" f"Expected text: {expected}"):
+
+            element = self.get_element(selector)
+            actual = element.text.strip()
+            assert actual == expected, f"ACTUAL IS:  {actual}, EXPECTED IS: {expected}"
 
     def should_be_visible(self, selector):
-        element = self.get_element(selector)
-        assert element.is_displayed()
+        with allure.step(f"Should be visible selector: {selector}"):
+            element = self.get_element(selector)
+            assert element.is_displayed()
 
+    @allure.step("Assert element is not visible")
     def should_be_not_visible(self, selector, timeout=5):
         element = WebDriverWait(self.driver, timeout).until_not(EC.element_to_be_clickable(selector))
         return element
